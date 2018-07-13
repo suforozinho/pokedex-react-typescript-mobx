@@ -14,13 +14,14 @@ interface IProps {
 export default class PokeSearch extends React.Component<IProps, {}> {
   public render() {
     return (
-      <div>
+      <div className='PokeSearch'>
         <input
           type="text"
           value={this.props.store.pokemonToSearch}
           onChange={this.handleInput}
+          className="PokeSearch__input"
         />
-        <button onClick={this.searchPokemon}>Search</button>
+        <button onClick={this.searchPokemon} className="PokeSearch__button">Search</button>
       </div>
     );
   }
