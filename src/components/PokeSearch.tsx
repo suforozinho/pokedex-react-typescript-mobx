@@ -6,7 +6,8 @@ import { IPokemonInfo } from '../App'
 interface IProps {
   store: {
     pokemonToSearch: string,
-    pokemonInfo: IPokemonInfo
+    pokemonInfo: IPokemonInfo,
+    isLoading: boolean
   };
 }
 
@@ -31,7 +32,9 @@ export default class PokeSearch extends React.Component<IProps, {}> {
   };
 
   private searchPokemon = (e: React.SyntheticEvent<HTMLButtonElement>) => {
-    axios.get(`http://pokeapi.salestock.net/api/v2/pokemon/${this.props.store.pokemonToSearch}`).then((response) => {
+    this.props.store.isLoading = true;
+    axios.get(`http://pokeapi.salestock.net/api/v2/pokemon/${this.props.store.pokemonToSearch.toLowerCase()}`).then((response) => {
+      this.props.store.isLoading = false;
       this.props.store.pokemonInfo = response.data
     })
   }

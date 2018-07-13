@@ -100,6 +100,7 @@ export interface IPokemonInfo {
 }
 
 export const AppStore = observable({
+  isLoading: false,
   pokemonInfo: {
     abilities: [],
     base_experience: 0,
