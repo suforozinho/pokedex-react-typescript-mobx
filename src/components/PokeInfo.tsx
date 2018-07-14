@@ -14,7 +14,7 @@ export default class PokeInfo extends React.Component<IProps, {}> {
     if (this.props.store.isLoading) {
       content = <p>Loading...</p>
     }
-    if (!this.props.store.isLoading) {
+    if (!this.props.store.isLoading && this.props.store.didFoundPokemon) {
       content = (
         <div>
           <h2>{this.props.store.pokemonInfo.name}</h2>
