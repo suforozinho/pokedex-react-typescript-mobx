@@ -99,7 +99,13 @@ export interface IPokemonInfo {
   weight: number
 }
 
-export const AppStore = observable({
+export interface IAppStore {
+  pokemonToSearch: string,
+  pokemonInfo: IPokemonInfo,
+  isLoading: boolean
+}
+
+export const AppStore: IAppStore = observable({
   isLoading: false,
   pokemonInfo: {
     abilities: [],

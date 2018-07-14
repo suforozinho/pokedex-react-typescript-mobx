@@ -1,15 +1,7 @@
 import axios from 'axios';
 import { observer } from 'mobx-react';
 import * as React from 'react';
-import { IPokemonInfo } from '../App'
-
-interface IProps {
-  store: {
-    pokemonToSearch: string,
-    pokemonInfo: IPokemonInfo,
-    isLoading: boolean
-  };
-}
+import { IProps } from '../interfaces';
 
 @observer
 export default class PokeSearch extends React.Component<IProps, {}> {
