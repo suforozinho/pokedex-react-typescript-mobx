@@ -24,6 +24,11 @@ export default class PokeInfo extends React.Component<IProps, {}> {
         </div>
       )
     }
+    if (!this.props.store.isLoading && this.props.store.error) {
+      content = (
+        <h1 className="errorHeader">ERROR!</h1>
+      )
+    }
 
     return (
       <div>

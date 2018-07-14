@@ -104,10 +104,12 @@ export interface IAppStore {
   pokemonInfo: IPokemonInfo
   isLoading: boolean
   didFoundPokemon: boolean
+  error: boolean
 }
 
 export const AppStore: IAppStore = observable({
   didFoundPokemon: false,
+  error: false,
   isLoading: false,
   pokemonInfo: {
     abilities: [],
