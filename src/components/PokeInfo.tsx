@@ -7,19 +7,34 @@ interface IPokeInfoInjectedProps {
   store: IAppStore;
 }
 
+interface IPokeInfoState {
+  pokemonType: string;
+}
+
 @inject(STORE)
 @observer
 export default class PokeInfo extends React.Component {
+  constructor(props: IPokeInfoInjectedProps) {
+    super(props);
+    this.state = {
+      pokemonType: ''
+    };
+  }
+
   get injected() {
     return this.props as IPokeInfoInjectedProps;
   }
 
+  get pokeInfoState() {
+    return this.state as IPokeInfoState;
+  }
+
   public render() {
-    const abilitiesLi = this.injected.store.pokemonInfo.abilities.map(
-      (ability, index) => {
-        return <li key={index}>{ability.ability.name}</li>;
-      }
-    );
+    // const abilitiesLi = this.injected.store.pokemonInfo.abilities.map(
+    //   (ability, index) => {
+    //     return <li key={index}>{ability.ability.name}</li>;
+    //   }
+    // );
 
     let content;
 
@@ -27,12 +42,36 @@ export default class PokeInfo extends React.Component {
       content = <p>Loading...</p>;
     }
     if (!this.injected.store.isLoading && this.injected.store.didFoundPokemon) {
+      setTimeout(() => {
+        this.setState({
+          pokemonType: this.injected.store.pokemonInfo.types[0].type.name
+        });
+      }, 100);
+
       content = (
         <div>
-          <h2>{this.injected.store.pokemonInfo.name}</h2>
+          <div className="PokeInfo__header">
+            <div className="PokeInfo__header__column-1">
+              <div className="PokeInfo__header__image">
+                <img
+                  src={this.injected.store.pokemonInfo.sprites.front_default}
+                />
+              </div>
+              <div className="PokeInfo__header__name">
+                <span>{this.injected.store.pokemonInfo.name}</span>
+                <span>{this.injected.store.pokemonInfo.id}</span>
+              </div>
+            </div>
+            <div className="PokeInfo__header__type">
+              <span className="PokeInfo__header__type__span">
+                {this.pokeInfoState.pokemonType}
+              </span>
+            </div>
+          </div>
+          {/* <h2>{this.injected.store.pokemonInfo.name}</h2>
           <h3>Abilities:</h3>
           <ul>{abilitiesLi}</ul>
-          <p>Specie: {this.injected.store.pokemonInfo.species.name}</p>
+          <p>Specie: {this.injected.store.pokemonInfo.species.name}</p> */}
         </div>
       );
     }
