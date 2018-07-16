@@ -1,41 +1,58 @@
 import axios from 'axios';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import * as React from 'react';
-import { IProps } from '../interfaces';
+import { IAppStore } from '../App';
+import { STORE } from '../constants/props';
 
+interface IPokeSearchInjectedProps {
+  store: IAppStore;
+}
+
+@inject(STORE)
 @observer
-export default class PokeSearch extends React.Component<IProps, {}> {
+export default class PokeSearch extends React.Component {
+  get injected() {
+    return this.props as IPokeSearchInjectedProps;
+  }
+
   public render() {
     return (
-      <div className='PokeSearch'>
+      <div className="PokeSearch">
         <input
           type="text"
-          value={this.props.store.pokemonToSearch}
+          value={this.injected.store.pokemonToSearch}
           onChange={this.handleInput}
           className="PokeSearch__input"
         />
-        <button onClick={this.searchPokemon} className="PokeSearch__button">Search</button>
+        <button onClick={this.searchPokemon} className="PokeSearch__button">
+          Search
+        </button>
       </div>
     );
   }
 
   private handleInput = (e: React.SyntheticEvent<HTMLInputElement>) => {
-    this.props.store.pokemonToSearch = e.currentTarget.value;
+    this.injected.store.pokemonToSearch = e.currentTarget.value;
   };
 
   private searchPokemon = (e: React.SyntheticEvent<HTMLButtonElement>) => {
-    this.props.store.isLoading = true;
-    this.props.store.didFoundPokemon = false;
-    this.props.store.error = false;
-    axios.get(`http://pokeapi.salestock.net/api/v2/pokemon/${this.props.store.pokemonToSearch.toLowerCase()}`).then((response) => {
-      this.props.store.isLoading = false;
-      this.props.store.didFoundPokemon = true;
-      this.props.store.pokemonInfo = response.data
-    }).catch(error => {
-      this.props.store.isLoading = false;
-      this.props.store.error = true;
-      // tslint:disable-next-line:no-console
-      console.log(error)
-    })
-  }
+    this.injected.store.isLoading = true;
+    this.injected.store.didFoundPokemon = false;
+    this.injected.store.error = false;
+    axios
+      .get(
+        `http://pokeapi.salestock.net/api/v2/pokemon/${this.injected.store.pokemonToSearch.toLowerCase()}`
+      )
+      .then(response => {
+        this.injected.store.isLoading = false;
+        this.injected.store.didFoundPokemon = true;
+        this.injected.store.pokemonInfo = response.data;
+      })
+      .catch(error => {
+        this.injected.store.isLoading = false;
+        this.injected.store.error = true;
+        // tslint:disable-next-line:no-console
+        console.log(error);
+      });
+  };
 }

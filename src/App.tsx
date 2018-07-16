@@ -1,110 +1,111 @@
 import { observable } from 'mobx';
+import { Provider } from 'mobx-react';
 import * as React from 'react';
 import './App.css';
-import PokeInfo from './components/PokeInfo'
+import PokeInfo from './components/PokeInfo';
 import PokeSearch from './components/PokeSearch';
 
 interface IAbilities {
   ability: {
-    name: string,
-    url: string
-  }
-  is_hidden: boolean
-  slot: number
+    name: string;
+    url: string;
+  };
+  is_hidden: boolean;
+  slot: number;
 }
 
 interface IFormItem {
-  name: string
-  url: string
+  name: string;
+  url: string;
 }
 
 interface IVersion {
-  name: string
-  url: string
+  name: string;
+  url: string;
 }
 
 interface IGameIndex {
-  game_index: number
-  version: IVersion
+  game_index: number;
+  version: IVersion;
 }
 
 interface IVersionDetail {
-  rarity: number
-  version: IVersion
+  rarity: number;
+  version: IVersion;
 }
 
 interface IHeldItem {
   item: {
-    name: string
-    url: string
-  }
-  version_details: IVersionDetail[]
+    name: string;
+    url: string;
+  };
+  version_details: IVersionDetail[];
 }
 
 interface INameUrl {
-  name: string
-  url: string
+  name: string;
+  url: string;
 }
 
 interface IVersionGroupDetail {
-  level_learned_at: number
-  move_learn_method: INameUrl
-  version_group: INameUrl
+  level_learned_at: number;
+  move_learn_method: INameUrl;
+  version_group: INameUrl;
 }
 
 interface IMove {
-  move: INameUrl
-  version_group_details: IVersionGroupDetail
+  move: INameUrl;
+  version_group_details: IVersionGroupDetail;
 }
 
 interface ISprites {
-  back_default: string
-  back_female: string
-  back_shiny: string
-  back_shiny_female: string
-  front_default: string
-  front_female: string
-  front_shiny: string
-  front_shiny_female: string
+  back_default: string;
+  back_female: string;
+  back_shiny: string;
+  back_shiny_female: string;
+  front_default: string;
+  front_female: string;
+  front_shiny: string;
+  front_shiny_female: string;
 }
 
 interface IStat {
-  base_stat: number
-  effort: number
-  stat: INameUrl
+  base_stat: number;
+  effort: number;
+  stat: INameUrl;
 }
 
 interface IType {
-  slot: number
-  type: INameUrl
+  slot: number;
+  type: INameUrl;
 }
 
 export interface IPokemonInfo {
-  abilities: IAbilities[]
-  base_experience: number
-  forms: IFormItem[]
-  game_indices: IGameIndex[]
-  height: number
-  held_items: IHeldItem[]
-  id: number
-  is_default: boolean
-  location_area_encounters: string
-  moves: IMove[]
-  name: string
-  order: number
-  species: INameUrl
-  sprites: ISprites
-  stats: IStat[]
-  types: IType[]
-  weight: number
+  abilities: IAbilities[];
+  base_experience: number;
+  forms: IFormItem[];
+  game_indices: IGameIndex[];
+  height: number;
+  held_items: IHeldItem[];
+  id: number;
+  is_default: boolean;
+  location_area_encounters: string;
+  moves: IMove[];
+  name: string;
+  order: number;
+  species: INameUrl;
+  sprites: ISprites;
+  stats: IStat[];
+  types: IType[];
+  weight: number;
 }
 
 export interface IAppStore {
-  pokemonToSearch: string
-  pokemonInfo: IPokemonInfo
-  isLoading: boolean
-  didFoundPokemon: boolean
-  error: boolean
+  pokemonToSearch: string;
+  pokemonInfo: IPokemonInfo;
+  isLoading: boolean;
+  didFoundPokemon: boolean;
+  error: boolean;
 }
 
 export const AppStore: IAppStore = observable({
@@ -145,10 +146,12 @@ export const AppStore: IAppStore = observable({
 class App extends React.Component {
   public render() {
     return (
-      <div className="App">
-        <PokeSearch store={AppStore} />
-        <PokeInfo store={AppStore} />
-      </div>
+      <Provider store={AppStore}>
+        <div className="App">
+          <PokeSearch />
+          <PokeInfo />
+        </div>
+      </Provider>
     );
   }
 }
