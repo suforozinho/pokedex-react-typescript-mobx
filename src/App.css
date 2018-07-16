@@ -5,28 +5,38 @@
 
 .PokeSearch {
   display: flex;
-  justify-content: center;
 }
 
 .PokeSearch__input {
-  background: rgb(220, 120, 130);
-  border: 2px solid rgb(157, 58, 79);
-  border-radius: 5px;
-  color: rgb(253, 253, 253);
-  font-size: 2em;
-  margin-right: 5px;
-  /* margin-left: 5px; */
-  padding: 5px;
-  /* width: 30em; */
+  border: 1.5px solid #c7c7c8;
+  border-right: 0;
+  border-radius: 2px;
+  flex-grow: 1;
+  padding: 5px 10px 5px 10px;
+  outline: 0;
+}
+
+.PokeSearch__input::placeholder {
+  color: #9d9d9d;
+  font-weight: bold;
 }
 
 .PokeSearch__button {
-  background: rgb(97, 97, 150);
-  border: 0;
-  border-radius: 5px;
-  color: white;
+  background: white;
+  border: 2px solid #c7c7c8;
+  padding-left: 8px;
+  padding-right: 8px;
+  outline: 0;
 }
 
 .errorHeader {
   color: red;
+}
+
+.PokeInfo__header {
+  display: flex;
+}
+
+.PokeInfo__header__name {
+  font-size: 25px;
 }

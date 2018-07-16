@@ -23,9 +23,10 @@ export default class PokeSearch extends React.Component {
           value={this.injected.store.pokemonToSearch}
           onChange={this.handleInput}
           className="PokeSearch__input"
+          placeholder="Search..."
         />
         <button onClick={this.searchPokemon} className="PokeSearch__button">
-          Search
+          <i className="fa fa-search" />
         </button>
       </div>
     );
